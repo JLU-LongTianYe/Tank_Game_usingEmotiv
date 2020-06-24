@@ -20,7 +20,7 @@ import javax.swing.JLabel;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
-//*×Óµ¯¶¯ ÓÃÏß³Ì*/
+//*å­å¼¹åŠ¨ ç”¨çº¿ç¨‹*/
 class Tank
 {
 	boolean shengming=true;
@@ -127,7 +127,7 @@ class DiTank extends Tank implements Runnable
 						{
 							return true;
 						}
-						//ÏÂÒ»µã
+						//ä¸‹ä¸€ç‚¹
 						if(this.x>=dt.x&&this.x<=dt.x+80&&this.y+80>=dt.y&&this.y+80<=dt.y+90)
 						{
 							return true;
@@ -265,7 +265,7 @@ class DiTank extends Tank implements Runnable
 			}
 			break;
 		}
-			this.fangxiang=(int)(Math.random()*4);//Ëæ»úº¯Êı£¬Ëæ»ú²úÉú0µ½1Ö®¼äµÄÊı×Ö È¡Õû ¾ÍÊÇ0µ½3
+			this.fangxiang=(int)(Math.random()*4);//éšæœºå‡½æ•°ï¼Œéšæœºäº§ç”Ÿ0åˆ°1ä¹‹é—´çš„æ•°å­— å–æ•´ å°±æ˜¯0åˆ°3
 			if(this.shengming==false)
 			{
 				break;
@@ -283,21 +283,24 @@ class DiTank extends Tank implements Runnable
 								case 0:
 									zidan=new Zidan(x+35,y-30,0);
 									dzd.add(zidan);
+									new Thread(zidan).start();
 									break;
 								case 1:
 									zidan=new Zidan(x-30,y+35,1);
 									dzd.add(zidan);
+									new Thread(zidan).start();
 								case 2:
 									zidan=new Zidan(x+35,y+100,2);
 									dzd.add(zidan);
+									new Thread(zidan).start();
 									break;
 								case 3:
 									zidan=new Zidan(x+105,y+35,3);
-							dzd.add(zidan);
+									dzd.add(zidan);
+									new Thread(zidan).start();
 							break;
 								}
-						Thread t5=new Thread(zidan);
-						t5.start();
+
 					}
 				}
 			}
@@ -311,7 +314,7 @@ class DiTank extends Tank implements Runnable
 }
 class MyTank extends Tank 
 {
-	Vector<Zidan>aa=new Vector<Zidan>();//ÀûÓÃÏòÁ¿À´×°zidan ÕâÑù¾Í¿ÉÒÔ·ÀÖ¹Ö»ÄÜ·¢Ò»·¢×Óµ¯
+	Vector<Zidan>aa=new Vector<Zidan>();//åˆ©ç”¨å‘é‡æ¥è£…zidan è¿™æ ·å°±å¯ä»¥é˜²æ­¢åªèƒ½å‘ä¸€å‘å­å¼¹
 	Zidan zidan=null;
 	public MyTank(int x,int y)
 	{
@@ -374,7 +377,7 @@ class Zidan implements Runnable
 		this.fangxiang=fangxiang;
 	}
 	public void run() {
-		while(true)//Ïß³ÌÏÂÃæµÄËÀÑ­»·Àï¶¼ÒªÓĞË¯Ãß
+		while(true)//çº¿ç¨‹ä¸‹é¢çš„æ­»å¾ªç¯é‡Œéƒ½è¦æœ‰ç¡çœ 
 		{
 			try
 			{
@@ -472,15 +475,15 @@ class Start extends Thread{
         time_m=Integer.parseInt(m.getText());
         time_h=Integer.parseInt(h.getText());
 
-        NumberFormat nf = NumberFormat.getInstance();   //µ÷ÕûÊ±¼äµÄÊä³ö¸ñÊ½
+        NumberFormat nf = NumberFormat.getInstance();   //è°ƒæ•´æ—¶é—´çš„è¾“å‡ºæ ¼å¼
         NumberFormat nff = NumberFormat.getInstance();
-        nf.setMinimumIntegerDigits(2) ;     //ÈÃÊ±·ÖÃë¶¼ÏÔÊ¾ÎªÁ½Î»Êı
+        nf.setMinimumIntegerDigits(2) ;     //è®©æ—¶åˆ†ç§’éƒ½æ˜¾ç¤ºä¸ºä¸¤ä½æ•°
         nff.setMinimumIntegerDigits(3) ;
         while (life) {
             try {
                 Thread.sleep(1);     
             } catch (InterruptedException e) {
-                break;  //Èç¹ûÖĞ¶Ï´ËÏß³Ì£¬Ìø³öËÀÑ­»·´Ó¶ø½áÊøÏß³Ì
+                break;  //å¦‚æœä¸­æ–­æ­¤çº¿ç¨‹ï¼Œè·³å‡ºæ­»å¾ªç¯ä»è€Œç»“æŸçº¿ç¨‹
             }
             time_ms++;
             if(time_ms>=1000){
@@ -488,7 +491,7 @@ class Start extends Thread{
             	time_ms=0;
             	if (time_s>=60) {
                   time_m++;
-                  time_s=0;   //ÃëÖÓµÈÓÚ60£¬·ÖÖÓ¼Ó1£¬ÃëÖÓÖÃ0
+                  time_s=0;   //ç§’é’Ÿç­‰äº60ï¼Œåˆ†é’ŸåŠ 1ï¼Œç§’é’Ÿç½®0
                   if(time_m>=60){
                       time_h++;
                       time_m=0;
@@ -499,7 +502,7 @@ class Start extends Thread{
               }
             }
             ms.setText(nff.format(time_ms));
-            s.setText(nf.format(time_s));   //  ¸ñÊ½»¯Êä³ö e.g. 0:0:1¡ª¡ª>00:00:01
+            s.setText(nf.format(time_s));   //  æ ¼å¼åŒ–è¾“å‡º e.g. 0:0:1â€”â€”>00:00:01
             m.setText(nf.format(time_m));
             h.setText(nf.format(time_h));
 
@@ -548,7 +551,7 @@ class Shengyin extends Thread{
 //	@Override
 //	public void run() {
 //		File wjl=new File(wjm);
-//		//ÒôÆµ¸ñÊ½´¦Àí
+//		//éŸ³é¢‘æ ¼å¼å¤„ç†
 //		AudioInputStream ypsrl=null;
 //		try {
 //			ypsrl=AudioSystem.getAudioInputStream(wjl);
@@ -556,7 +559,7 @@ class Shengyin extends Thread{
 //		AudioFormat format=ypsrl.getFormat();
 //		SourceDataLine aqsj=null;
 //		DataLine.Info info=new DataLine.Info(SourceDataLine.class, format);
-//		//°²È«Ê½°ü×°
+//		//å®‰å…¨å¼åŒ…è£…
 //		try {
 //			aqsj=(SourceDataLine) AudioSystem.getLine(info);
 //			aqsj.open(format);
@@ -564,7 +567,7 @@ class Shengyin extends Thread{
 //		aqsj.start();
 //		
 //		int zjtj=0;
-//		//»º³å
+//		//ç¼“å†²
 //		byte[] hczj=new byte[1024];
 //		try{
 //			while(zjtj!=-1){
